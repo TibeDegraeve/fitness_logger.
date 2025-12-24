@@ -4,6 +4,7 @@ Created on Wed Dec 24 10:31:56 2025
 
 @author: Tibe
 """
+from database import add_exercise
 
 def toon_menu():
     print("\n" + "="*30)
@@ -23,7 +24,11 @@ def main():
         keuze = input("Maak een keuze: ").lower().strip()
         
         if keuze == '1':
-            print("\n>> Hier komt code om oefeningen te maken.")
+            print("\n--- Nieuwe Oefening ---")
+            naam = input("Naam van de oefening: ")
+            spiergroep = input("Spiergroep: ")
+            add_exercise(naam, spiergroep)
+            input("\nDruk op Enter om terug te gaan.")
         elif keuze == '2':
             print("\n>> Hier komt code om te loggen.")
         elif keuze == '3':
