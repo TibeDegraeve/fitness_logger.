@@ -18,3 +18,15 @@ class Trainingset:
     def __str__(self):
         totaal = self.bereken_volume()
         return f"{self.datum} | {self.oefening}: {self.reps}x {self.gewicht}kg (Totaal: {totaal}kg)"
+    
+if __name__ == "__main__":
+    
+    # 1. Maak een test set
+    test_set = Trainingset("Test Oefening", 100, 5, "2024-01-01")
+    
+    # 2. Controleer de berekening
+    print(f"Oefening: {test_set.oefening}")
+    print(f"Volume:   {test_set.bereken_volume()} (Verwacht: 500)")
+    
+    # 3. Controleer de tekstweergave
+    print(f"Weergave: {test_set}")
