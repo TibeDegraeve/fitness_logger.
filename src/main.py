@@ -4,7 +4,7 @@ Created on Wed Dec 24 10:31:56 2025
 
 @author: Tibe
 """
-from database import add_exercise
+from database import add_exercise, add_log
 
 def toon_menu():
     print("\n" + "="*30)
@@ -30,7 +30,20 @@ def main():
             add_exercise(naam, spiergroep)
             input("\nDruk op Enter om terug te gaan.")
         elif keuze == '2':
-            print("\n>> Hier komt code om te loggen.")
+            print("\n--- Training Loggen ---")
+            naam = input("Welke oefening heb je gedaan?: ")
+            try:
+                gewicht = float(input("Gewicht (kg): "))
+                reps = int(input("Aantal reps: "))
+            except ValueError:
+                print("Fout: Voer getallen in bij gewicht en reps!")
+                continue
+            
+            datum_input = input("Datum (DD-MM-YYYY): ")
+            
+            datum = datum_input
+            add_log(naam, gewicht, reps, datum)
+            input("\nDruk op Enter om terug te gaan...")
         elif keuze == '3':
             print("\n>> Hier komt het overzicht.")
         elif keuze == '4':
