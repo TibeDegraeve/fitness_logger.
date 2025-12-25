@@ -74,6 +74,24 @@ def add_log(exercise_name, weight, reps, date):
             print(f"Fout: Oefening '{exercise_name}' onbekend. Voeg die eerst toe!")
         
         conn.close()
+        
+        
+def get_recent_logs():
+    conn = get_db_connection()
+    if conn:
+        cursor = conn.cursor()
+        query = """
+            SELECT logs.date, exercises.name, logs.weight, logs.reps 
+            FROM logs 
+            JOIN exercises ON logs.exercise_id = exercises.id 
+            ORDER BY logs.date DESC 
+            LIMIT 10
+        """
+        cursor.execute(query)
+        results = cursor.fetchall()
+        conn.close()
+        return results
+    return []        
 
 if __name__ == "__main__":
     # 1. Ervoor zorgen dat je tabellen bestaan
