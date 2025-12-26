@@ -4,7 +4,8 @@ Created on Wed Dec 24 10:31:56 2025
 
 @author: Tibe
 """
-from database import add_exercise, add_log, get_recent_logs, create_tables
+import csv
+from database import add_exercise, add_log, get_recent_logs, create_tables, get_all_logs
 
 def toon_menu():
     print("\n" + "="*30)
@@ -13,7 +14,8 @@ def toon_menu():
     print("1. Nieuwe oefening aanmaken")
     print("2. Training loggen")
     print("3. Bekijk logboek")
-    print("4. Stoppen")
+    print("4. Exporteer naar CSV")
+    print("5. Stoppen")
     print("-" * 30)
 
 def main():
@@ -58,11 +60,33 @@ def main():
                 print(f"{log['date']:<12} | {log['name']:<15} | {log['weight']:<8} | {log['reps']}")
 
             input("\nDruk op Enter om terug te gaan...")
-        elif keuze == '4': 
-            print("\nTot ziens! Goed getraind!")
+            
+        elif keuze == '4':
+            print("\n--- Exporteren naar CSV ---")
+            bestandsnaam = input("Bestandsnaam: ")
+            if not bestandsnaam.endswith('.csv'):
+                bestandsnaam += '.csv'
+            
+            logs = get_all_logs()
+            
+            try:
+                with open(bestandsnaam, mode='w', newline='') as file:
+                    writer = csv.writer(file, delimiter=';')
+                    writer.writerow(['Datum', 'Oefening', 'Gewicht', 'Reps'])
+                    for log in logs:
+                        writer.writerow([log['date'], log['name'], log['weight'], log['reps']])
+                
+                print(f"Succes! Je data is opgeslagen in '{bestandsnaam}'.")
+            except Exception as e:
+                print(f"Er ging iets mis: {e}")
+            
+            input("\nDruk op Enter om terug te gaan...")
+
+        elif keuze == '5':
+            print("Programma afgesloten")
             break
         else:
-            print("\nFout: Dat is geen keuze. Probeer opnieuw.")
+            print("\nFout: Dat is geen optie. Probeer opnieuw.")
 
 if __name__ == "__main__":
     create_tables()

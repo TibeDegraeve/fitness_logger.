@@ -93,6 +93,22 @@ def get_recent_logs():
         return results
     return []        
 
+def get_all_logs():
+    conn = get_db_connection()
+    if conn:
+        cursor = conn.cursor()
+        query = """
+            SELECT logs.date, exercises.name, logs.weight, logs.reps 
+            FROM logs 
+            JOIN exercises ON logs.exercise_id = exercises.id 
+            ORDER BY logs.date DESC
+        """
+        cursor.execute(query)
+        results = cursor.fetchall()
+        conn.close()
+        return results
+    return []
+
 if __name__ == "__main__":
     # 1. Ervoor zorgen dat je tabellen bestaan
     create_tables()
