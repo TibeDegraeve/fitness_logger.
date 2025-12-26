@@ -4,7 +4,7 @@ Created on Wed Dec 24 10:31:56 2025
 
 @author: Tibe
 """
-from database import add_exercise, add_log, get_recent_logs
+from database import add_exercise, add_log, get_recent_logs, create_tables
 
 def toon_menu():
     print("\n" + "="*30)
@@ -65,4 +65,5 @@ def main():
             print("\nFout: Dat is geen keuze. Probeer opnieuw.")
 
 if __name__ == "__main__":
+    create_tables()
     main()
