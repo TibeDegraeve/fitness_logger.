@@ -4,7 +4,7 @@ Created on Wed Dec 24 10:31:56 2025
 
 @author: Tibe
 """
-from database import add_exercise, add_log
+from database import add_exercise, add_log, get_recent_logs
 
 def toon_menu():
     print("\n" + "="*30)
@@ -45,8 +45,20 @@ def main():
             add_log(naam, gewicht, reps, datum)
             input("\nDruk op Enter om terug te gaan...")
         elif keuze == '3':
-            print("\n>> Hier komt het overzicht.")
-        elif keuze == '4':
+            print("\n--- Laatste 10 Trainingen ---")
+            logs = get_recent_logs()
+
+            if not logs:
+                print("Je hebt nog geen trainingen gelogd.")
+            else:
+                print(f"{'Datum':<12} | {'Oefening':<15} | {'Gewicht':<8} | {'Reps'}")
+                print("-" * 50)
+
+            for log in logs:
+                print(f"{log['date']:<12} | {log['name']:<15} | {log['weight']:<8} | {log['reps']}")
+
+            input("\nDruk op Enter om terug te gaan...")
+        elif keuze == '4': 
             print("\nTot ziens! Goed getraind!")
             break
         else:
